@@ -9,6 +9,12 @@
 import UIKit
 import CoreData
 
+class CustomNavigationController: UINavigationController {
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -19,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow()
         window?.makeKeyAndVisible()
         let companies = CompaniesViewController()
-        let nav: UINavigationController = UINavigationController(rootViewController: companies)
+        let nav: UINavigationController = CustomNavigationController(rootViewController: companies)
         window?.rootViewController = nav
         return true
     }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		73D8D9631FAE2ED4006A3756 /* UIColor+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D8D9621FAE2ED4006A3756 /* UIColor+Theme.swift */; };
 		73E3D8851FAE193300AD6853 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E3D8841FAE193300AD6853 /* AppDelegate.swift */; };
 		73E3D88D1FAE193300AD6853 /* IntermediateTraining.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 73E3D88B1FAE193300AD6853 /* IntermediateTraining.xcdatamodeld */; };
 		73E3D88F1FAE193300AD6853 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73E3D88E1FAE193300AD6853 /* Assets.xcassets */; };
@@ -26,6 +27,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		73D8D9621FAE2ED4006A3756 /* UIColor+Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Theme.swift"; sourceTree = "<group>"; };
 		73E3D8811FAE193300AD6853 /* IntermediateTraining.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IntermediateTraining.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73E3D8841FAE193300AD6853 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		73E3D88C1FAE193300AD6853 /* IntermediateTraining.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = IntermediateTraining.xcdatamodel; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 			children = (
 				73E3D8841FAE193300AD6853 /* AppDelegate.swift */,
 				73E3D8A71FAE1D3600AD6853 /* CompaniesViewController.swift */,
+				73D8D9621FAE2ED4006A3756 /* UIColor+Theme.swift */,
 				73E3D88E1FAE193300AD6853 /* Assets.xcassets */,
 				73E3D8901FAE193300AD6853 /* LaunchScreen.storyboard */,
 				73E3D8931FAE193400AD6853 /* Info.plist */,
@@ -199,6 +202,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				73E3D8A81FAE1D3600AD6853 /* CompaniesViewController.swift in Sources */,
+				73D8D9631FAE2ED4006A3756 /* UIColor+Theme.swift in Sources */,
 				73E3D8851FAE193300AD6853 /* AppDelegate.swift in Sources */,
 				73E3D88D1FAE193300AD6853 /* IntermediateTraining.xcdatamodeld in Sources */,
 			);
