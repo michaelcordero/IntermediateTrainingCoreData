@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		73272D8A1FAF9DB600680607 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73272D891FAF9DB600680607 /* CoreDataManager.swift */; };
 		73D8D9631FAE2ED4006A3756 /* UIColor+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D8D9621FAE2ED4006A3756 /* UIColor+Theme.swift */; };
 		73D8D9651FAE93C1006A3756 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D8D9641FAE93C1006A3756 /* Company.swift */; };
 		73D8D9671FAE996E006A3756 /* CreateCompanyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D8D9661FAE996E006A3756 /* CreateCompanyViewController.swift */; };
@@ -29,6 +30,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		73272D891FAF9DB600680607 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		73D8D9621FAE2ED4006A3756 /* UIColor+Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Theme.swift"; sourceTree = "<group>"; };
 		73D8D9641FAE93C1006A3756 /* Company.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
 		73D8D9661FAE996E006A3756 /* CreateCompanyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCompanyViewController.swift; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 				73D8D9661FAE996E006A3756 /* CreateCompanyViewController.swift */,
 				73D8D9641FAE93C1006A3756 /* Company.swift */,
 				73D8D9621FAE2ED4006A3756 /* UIColor+Theme.swift */,
+				73272D891FAF9DB600680607 /* CoreDataManager.swift */,
 				73E3D88E1FAE193300AD6853 /* Assets.xcassets */,
 				73E3D8901FAE193300AD6853 /* LaunchScreen.storyboard */,
 				73E3D8931FAE193400AD6853 /* Info.plist */,
@@ -213,6 +216,7 @@
 				73D8D9631FAE2ED4006A3756 /* UIColor+Theme.swift in Sources */,
 				73E3D8851FAE193300AD6853 /* AppDelegate.swift in Sources */,
 				73D8D9651FAE93C1006A3756 /* Company.swift in Sources */,
+				73272D8A1FAF9DB600680607 /* CoreDataManager.swift in Sources */,
 				73E3D88D1FAE193300AD6853 /* IntermediateTraining.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

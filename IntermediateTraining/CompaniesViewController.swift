@@ -7,15 +7,12 @@
 //
 
 import UIKit
+import CoreData
 
 class CompaniesViewController: UITableViewController, CreateCompanyControllerDelegate {
     
     //Model Objects
-    var companies = [
-       Company(name: "Apple", founded: Date()),
-       Company(name: "Google", founded: Date()),
-       Company(name: "Facebook", founded: Date())
-    ]
+    var companies: [Company]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,10 +25,11 @@ class CompaniesViewController: UITableViewController, CreateCompanyControllerDel
         tableView.tableFooterView = UIView()    //makes line separators go away within background
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
         tableView.separatorColor = .white
+        fetchCompanies()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return companies.count
+        return companies?.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -43,8 +41,8 @@ class CompaniesViewController: UITableViewController, CreateCompanyControllerDel
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //Object References
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath)
-        let company: Company = companies[indexPath.row]
-        
+        let company: Company = companies![indexPath.row]
+
         // Table cell settings
         cell.backgroundColor = UIColor.teal
         cell.textLabel?.text = company.name
@@ -62,8 +60,28 @@ class CompaniesViewController: UITableViewController, CreateCompanyControllerDel
     }
     
     func didAddCompany(company: Company) {
-        companies.append(company)
-        let newIndexPath = IndexPath(row: companies.count - 1 , section: 0)
+        companies?.append(company)
+        let newIndexPath = IndexPath(row: (companies?.count)! - 1 , section: 0)
         tableView.insertRows(at: [newIndexPath], with: .automatic)
     }
+    
+    private func fetchCompanies() {
+        //preparing container
+        let container = NSPersistentContainer(name: "IntermediateTraining")
+        container.loadPersistentStores(completionHandler: {
+            (storeDescription, err) in if let err = err {
+            fatalError("Loading of store failed: \(err)")
+            }})
+        let context = container.viewContext
+        let fetchRequest = NSFetchRequest<Company>(entityName: "Company")
+        //fetch companies
+        do{
+            let companies = try context.fetch(fetchRequest)
+            self.companies = companies
+            self.tableView.reloadData()
+        } catch let fetchErr{
+            print("Failed to fetch companiess: ", fetchErr)
+        }
+    }
+  
 }
