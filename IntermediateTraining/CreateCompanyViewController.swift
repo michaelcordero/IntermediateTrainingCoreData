@@ -9,15 +9,82 @@
 import UIKit
 
 class CreateCompanyViewController: UIViewController {
+    
+    var delegate: CreateCompanyControllerDelegate?
+    
+    let nameLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Name"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let nameTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Enter name"
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupUI()
         view.backgroundColor = UIColor.navy
         navigationItem.title = "Create Company"
         navigationItem.leftBarButtonItem = UIBarButtonItem.init(title: "Cancel", style: .plain, target: self, action: #selector(handleCancel))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(handleSave))
     }
 
-    @objc func handleCancel() {
+    @objc private func handleCancel() {
         dismiss(animated: true, completion: nil)
     }
+    
+    @objc private func handleSave() {
+        print("trying to save..")
+        dismiss(animated: true, completion: { self.save() } )
+    }
+    
+    private func save() -> Void{
+        guard let name = nameTextField.text else { return }
+        let company: Company = Company(name: name, founded: Date())
+        self.delegate?.didAddCompany(company: company)
+    }
+    
+    private func setupUI() {
+        //Light Blue Background View
+        let lightBlueBackgroundView = UIView()
+        view.addSubview(lightBlueBackgroundView)
+        lightBlueBackgroundView.backgroundColor = UIColor.lightBlue
+        lightBlueBackgroundView.translatesAutoresizingMaskIntoConstraints = false
+        lightBlueBackgroundView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        lightBlueBackgroundView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        lightBlueBackgroundView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        lightBlueBackgroundView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        //Name Label
+        view.addSubview(nameLabel)
+        nameLabel.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        nameLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16).isActive = true
+        //nameLabel.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        nameLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        nameLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        nameLabel.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 50)
+        
+        //Name Text Field
+        view.addSubview(nameTextField)
+        nameTextField.leftAnchor.constraint(equalTo: nameLabel.rightAnchor).isActive = true
+        nameTextField.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        nameTextField.bottomAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
+        nameTextField.topAnchor.constraint(equalTo: nameLabel.topAnchor).isActive = true
+        
+        
+    }
 }
+
+// Custom Delegation
+
+protocol CreateCompanyControllerDelegate {
+    func didAddCompany(company: Company)
+}
+
+

@@ -8,18 +8,18 @@
 
 import UIKit
 
-class CompaniesViewController: UITableViewController {
+class CompaniesViewController: UITableViewController, CreateCompanyControllerDelegate {
     
     //Model Objects
-    let companies = [
+    var companies = [
        Company(name: "Apple", founded: Date()),
        Company(name: "Google", founded: Date()),
        Company(name: "Facebook", founded: Date())
     ]
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        //navigationItem.leftBarButtonItem = UIBarButtonItem(title: "TEST ADD", style: .plain, target: self, action: #selector(addCompany))
         view.backgroundColor = UIColor.white
         navigationItem.title = "Companies"
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus").withRenderingMode(UIImageRenderingMode.alwaysOriginal), style: .plain, target: self, action: #selector(handleAddCompany))
@@ -54,10 +54,16 @@ class CompaniesViewController: UITableViewController {
     }
     
     @objc func handleAddCompany() {
-        let createCompanyController = UIViewController()
-        let navController = CustomNavigationController(rootViewController: createCompanyController)
-        createCompanyController.view.backgroundColor = .green
+        let createVC = CreateCompanyViewController()
+        let navController = CustomNavigationController(rootViewController: createVC)
+        createVC.delegate = self
         present(navController, animated: true, completion: nil)
         print("Adding company..")
+    }
+    
+    func didAddCompany(company: Company) {
+        companies.append(company)
+        let newIndexPath = IndexPath(row: companies.count - 1 , section: 0)
+        tableView.insertRows(at: [newIndexPath], with: .automatic)
     }
 }
