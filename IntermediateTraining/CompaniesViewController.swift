@@ -11,8 +11,10 @@ import CoreData
 
 class CompaniesViewController: UITableViewController, CreateCompanyControllerDelegate {
     
-    //Model Objects
+    // MARK - Properties
     var companies: [Company]?
+    
+    // MARK - ViewController Functions
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +29,8 @@ class CompaniesViewController: UITableViewController, CreateCompanyControllerDel
         tableView.separatorColor = .white
         fetchCompanies()
     }
+    
+    // MARK - Table Functions
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return companies?.count ?? 0
@@ -50,6 +54,31 @@ class CompaniesViewController: UITableViewController, CreateCompanyControllerDel
         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
+            let company = self.companies![indexPath.row]
+            print("Attempting to delete company: ", company.name ?? "")
+            
+            // remove company from tableView
+            self.companies?.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            // delete company from CoreData
+            let context = CoreDataManager.shared.persistentContainer.viewContext
+            context.delete(company) // deletes from memory context
+            do {
+                try context.save() // actually persists the deletion
+            } catch let saveError {
+                print("Failed to delete company: ", saveError)
+            }
+        }
+        let editAction = UITableViewRowAction(style: .normal, title: "Edit") { (action, indexPath) in
+            print("Editing company ..")
+        }
+        return [deleteAction, editAction]
+    }
+    
+    // MARK - Controller Functions
     
     @objc func handleAddCompany() {
         let createVC = CreateCompanyViewController()
