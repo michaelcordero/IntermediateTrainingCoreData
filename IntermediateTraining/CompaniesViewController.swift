@@ -9,7 +9,15 @@
 import UIKit
 
 class CompaniesViewController: UITableViewController {
+    
+    //Model Objects
+    let companies = [
+       Company(name: "Apple", founded: Date()),
+       Company(name: "Google", founded: Date()),
+       Company(name: "Facebook", founded: Date())
+    ]
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
@@ -20,19 +28,10 @@ class CompaniesViewController: UITableViewController {
         tableView.tableFooterView = UIView()    //makes line separators go away within background
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
         tableView.separatorColor = .white
-        setupNavigationStyle()
-    }
-    
-    func setupNavigationStyle() {
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.barTintColor = UIColor.lightRed
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
-        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 50 //arbitrary
+        return companies.count
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -42,15 +41,23 @@ class CompaniesViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath)
+        //Object References
+        let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath)
+        let company: Company = companies[indexPath.row]
+        
+        // Table cell settings
         cell.backgroundColor = UIColor.teal
-        cell.textLabel?.text = "The Company Name"
+        cell.textLabel?.text = company.name
         cell.textLabel?.textColor = UIColor.white
         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         return cell
     }
     
     @objc func handleAddCompany() {
+        let createCompanyController = UIViewController()
+        let navController = CustomNavigationController(rootViewController: createCompanyController)
+        createCompanyController.view.backgroundColor = .green
+        present(navController, animated: true, completion: nil)
         print("Adding company..")
     }
 }
