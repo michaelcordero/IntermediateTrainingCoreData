@@ -9,10 +9,23 @@
 import UIKit
 import CoreData
 
+// Custom Delegation
+
+protocol CreateCompanyControllerDelegate {
+    func didAddCompany(company: Company)
+    func didEditCompany(company: Company)
+}
+
 class CreateCompanyViewController: UIViewController {
     
-    var delegate: CreateCompanyControllerDelegate?
+    // MARK - Properties
     
+    var delegate: CreateCompanyControllerDelegate?
+    var company: Company? {
+        didSet {
+            nameTextField.text = company?.name
+        }
+    }
     let nameLabel: UILabel = {
         let label = UILabel()
         label.text = "Name"
@@ -26,21 +39,49 @@ class CreateCompanyViewController: UIViewController {
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
+    
+    // MARK - ViewController Functions
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         view.backgroundColor = UIColor.navy
-        navigationItem.title = "Create Company"
         navigationItem.leftBarButtonItem = UIBarButtonItem.init(title: "Cancel", style: .plain, target: self, action: #selector(handleCancel))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(handleSave))
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationItem.title = company == nil ? "Create Company" : "Edit Company"
+    }
+    
+    // MARK - Private Functions
 
     @objc private func handleCancel() {
         dismiss(animated: true, completion: nil)
     }
     
     @objc private func handleSave() {
+        if company == nil {
+            createCompany()
+        } else {
+            updateCompany()
+        }
+    }
+    private func updateCompany() {
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+        company?.name = nameTextField.text
+        do {
+            try context.save()
+            dismiss(animated: true, completion: {
+                self.delegate?.didEditCompany(company: self.company!)
+            })
+        } catch let updateError {
+            print("Failed to update company changes: ", updateError)
+        }
+       
+    }
+    private func createCompany() {
         print("trying to save..")
         
         //initialization of our Core Data Stack
@@ -88,12 +129,6 @@ class CreateCompanyViewController: UIViewController {
         
         
     }
-}
-
-// Custom Delegation
-
-protocol CreateCompanyControllerDelegate {
-    func didAddCompany(company: Company)
 }
 
 

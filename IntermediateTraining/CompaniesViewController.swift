@@ -12,7 +12,7 @@ import CoreData
 class CompaniesViewController: UITableViewController, CreateCompanyControllerDelegate {
     
     // MARK - Properties
-    var companies: [Company]?
+    var companies = [Company]()
     
     // MARK - ViewController Functions
 
@@ -30,10 +30,24 @@ class CompaniesViewController: UITableViewController, CreateCompanyControllerDel
         fetchCompanies()
     }
     
+    // MARK - Protocols
+    func didEditCompany(company: Company) {
+        //update tableview somehow
+        let row = companies.index(of: company)
+        let reloadIndexPath = IndexPath(row: row!, section: 0)
+        tableView.reloadRows(at: [reloadIndexPath], with: .middle)
+    }
+    
+    func didAddCompany(company: Company) {
+        companies.append(company)
+        let newIndexPath = IndexPath(row: (companies.count) - 1 , section: 0)
+        tableView.insertRows(at: [newIndexPath], with: .automatic)
+    }
+    
     // MARK - Table Functions
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return companies?.count ?? 0
+        return companies.count
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -45,7 +59,7 @@ class CompaniesViewController: UITableViewController, CreateCompanyControllerDel
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //Object References
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath)
-        let company: Company = companies![indexPath.row]
+        let company: Company = companies[indexPath.row]
 
         // Table cell settings
         cell.backgroundColor = UIColor.teal
@@ -57,25 +71,35 @@ class CompaniesViewController: UITableViewController, CreateCompanyControllerDel
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
-            let company = self.companies![indexPath.row]
+            let company = self.companies[indexPath.row]
             print("Attempting to delete company: ", company.name ?? "")
             
             // remove company from tableView
-            self.companies?.remove(at: indexPath.row)
+            self.companies.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
             // delete company from CoreData
             let context = CoreDataManager.shared.persistentContainer.viewContext
             context.delete(company) // deletes from memory context
             do {
                 try context.save() // actually persists the deletion
+                print("Company successfully deleted.")
             } catch let saveError {
                 print("Failed to delete company: ", saveError)
             }
         }
-        let editAction = UITableViewRowAction(style: .normal, title: "Edit") { (action, indexPath) in
-            print("Editing company ..")
-        }
+        deleteAction.backgroundColor = UIColor.lightRed
+        let editAction = UITableViewRowAction(style: .normal, title: "Edit", handler: editHandlerFunction)
+        editAction.backgroundColor = UIColor.navy
         return [deleteAction, editAction]
+    }
+    
+    private func editHandlerFunction(action: UITableViewRowAction, indexPath: IndexPath){
+        print("Editing company in seperate function")
+        let editCompanyController = CreateCompanyViewController()
+        editCompanyController.delegate = self
+        editCompanyController.company = companies[indexPath.row]
+        let navController = CustomNavigationController(rootViewController: editCompanyController)
+        present(navController, animated: true, completion: nil)
     }
     
     // MARK - Controller Functions
@@ -86,12 +110,6 @@ class CompaniesViewController: UITableViewController, CreateCompanyControllerDel
         createVC.delegate = self
         present(navController, animated: true, completion: nil)
         print("Adding company..")
-    }
-    
-    func didAddCompany(company: Company) {
-        companies?.append(company)
-        let newIndexPath = IndexPath(row: (companies?.count)! - 1 , section: 0)
-        tableView.insertRows(at: [newIndexPath], with: .automatic)
     }
     
     private func fetchCompanies() {
