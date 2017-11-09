@@ -163,14 +163,8 @@ class CompaniesViewController: UITableViewController, CreateCompanyControllerDel
     }
     
     private func fetchCompanies() {
-        //preparing container
-        let container = NSPersistentContainer(name: "IntermediateTraining")
-        container.loadPersistentStores(completionHandler: {
-            (storeDescription, err) in if let err = err {
-            fatalError("Loading of store failed: \(err)")
-            }})
-        let context = container.viewContext
         let fetchRequest = NSFetchRequest<Company>(entityName: "Company")
+        let context = CoreDataManager.shared.persistentContainer.viewContext
         //fetch companies
         do{
             let companies = try context.fetch(fetchRequest)
