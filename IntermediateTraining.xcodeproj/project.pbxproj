@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		73272D8A1FAF9DB600680607 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73272D891FAF9DB600680607 /* CoreDataManager.swift */; };
+		739C12BF1FB2D1F900507E28 /* UINavigationControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739C12BE1FB2D1F900507E28 /* UINavigationControllerExtension.swift */; };
 		73D8D9631FAE2ED4006A3756 /* UIColor+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D8D9621FAE2ED4006A3756 /* UIColor+Theme.swift */; };
 		73D8D9671FAE996E006A3756 /* CreateCompanyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D8D9661FAE996E006A3756 /* CreateCompanyViewController.swift */; };
 		73DA93521FB183C20033CFFA /* CreateCompanyControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DA93511FB183C20033CFFA /* CreateCompanyControllerDelegate.swift */; };
@@ -31,6 +32,7 @@
 
 /* Begin PBXFileReference section */
 		73272D891FAF9DB600680607 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		739C12BE1FB2D1F900507E28 /* UINavigationControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationControllerExtension.swift; sourceTree = "<group>"; };
 		73D8D9621FAE2ED4006A3756 /* UIColor+Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Theme.swift"; sourceTree = "<group>"; };
 		73D8D9661FAE996E006A3756 /* CreateCompanyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCompanyViewController.swift; sourceTree = "<group>"; };
 		73DA93511FB183C20033CFFA /* CreateCompanyControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCompanyControllerDelegate.swift; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 				73E3D8841FAE193300AD6853 /* AppDelegate.swift */,
 				73E3D8A71FAE1D3600AD6853 /* CompaniesViewController.swift */,
 				73D8D9661FAE996E006A3756 /* CreateCompanyViewController.swift */,
+				739C12BE1FB2D1F900507E28 /* UINavigationControllerExtension.swift */,
 				73DA93511FB183C20033CFFA /* CreateCompanyControllerDelegate.swift */,
 				73D8D9621FAE2ED4006A3756 /* UIColor+Theme.swift */,
 				73272D891FAF9DB600680607 /* CoreDataManager.swift */,
@@ -218,6 +221,7 @@
 				73272D8A1FAF9DB600680607 /* CoreDataManager.swift in Sources */,
 				73E3D88D1FAE193300AD6853 /* IntermediateTraining.xcdatamodeld in Sources */,
 				73DA93521FB183C20033CFFA /* CreateCompanyControllerDelegate.swift in Sources */,
+				739C12BF1FB2D1F900507E28 /* UINavigationControllerExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

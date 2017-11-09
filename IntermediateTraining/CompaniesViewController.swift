@@ -76,6 +76,7 @@ class CompaniesViewController: UITableViewController, CreateCompanyControllerDel
         //cell.textLabel?.text = "\(company.name) - Founded: \(company.founded)"
         cell.textLabel?.textColor = UIColor.white
         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        cell.imageView?.image = UIImage(data: company.imageData!) ?? #imageLiteral(resourceName: "select-photo")
         return cell
     }
     
