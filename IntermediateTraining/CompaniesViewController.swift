@@ -18,7 +18,10 @@ class CompaniesViewController: UITableViewController, CreateCompanyControllerDel
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //navigationItem.leftBarButtonItem = UIBarButtonItem(title: "TEST ADD", style: .plain, target: self, action: #selector(addCompany))
+        fetchCompanies()
+        // Create Reset Button
+        navigationItem.leftBarButtonItem = UIBarButtonItem.init(title: "Reset", style: .plain, target: self, action: #selector(handleReset))
+        // Create Navigation Controller UI
         view.backgroundColor = UIColor.white
         navigationItem.title = "Companies"
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus").withRenderingMode(UIImageRenderingMode.alwaysOriginal), style: .plain, target: self, action: #selector(handleAddCompany))
@@ -27,7 +30,6 @@ class CompaniesViewController: UITableViewController, CreateCompanyControllerDel
         tableView.tableFooterView = UIView()    //makes line separators go away within background
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
         tableView.separatorColor = .white
-        fetchCompanies()
     }
     
     // MARK - Protocols
@@ -56,6 +58,19 @@ class CompaniesViewController: UITableViewController, CreateCompanyControllerDel
         return view
     }
     
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let label = UILabel()
+        label.text = "No companies available..."
+        label.textColor = .white
+        label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 16)
+        return label
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return companies.count == 0 ? 150 : 0
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //Object References
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath)
@@ -77,6 +92,10 @@ class CompaniesViewController: UITableViewController, CreateCompanyControllerDel
         cell.textLabel?.textColor = UIColor.white
         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         cell.imageView?.image = UIImage(data: company.imageData!) ?? #imageLiteral(resourceName: "select-photo")
+        cell.imageView?.layer.cornerRadius = (cell.imageView?.frame.width)! / 2  //makes image circular
+        cell.imageView?.clipsToBounds = true       //makes image circle
+        cell.imageView?.layer.borderColor = UIColor.navy.cgColor
+        cell.imageView?.layer.borderWidth = 2
         return cell
     }
     
@@ -115,12 +134,32 @@ class CompaniesViewController: UITableViewController, CreateCompanyControllerDel
     
     // MARK - Controller Functions
     
-    @objc func handleAddCompany() {
+    @objc private func handleAddCompany() {
         let createVC = CreateCompanyViewController()
         let navController = CustomNavigationController(rootViewController: createVC)
         createVC.delegate = self
         present(navController, animated: true, completion: nil)
         print("Adding company..")
+    }
+    
+    @objc private func handleReset() {
+        print("Attempting to delete all core data objects")
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: Company.fetchRequest())
+        do {
+            try context.execute(batchDeleteRequest)
+            var indexPathsToRemove = [IndexPath]()
+            // the following lines allow the animation to happen
+            for (index, _ ) in companies.enumerated() {
+                let indexPath = IndexPath(row: index, section: 0)
+                indexPathsToRemove.append(indexPath)
+            }
+            companies.removeAll()
+            tableView.deleteRows(at: indexPathsToRemove, with: .fade)
+            tableView.reloadData()
+        } catch let deleteError {
+            print("Failed to delete objects from Core Data: ", deleteError)
+        }
     }
     
     private func fetchCompanies() {

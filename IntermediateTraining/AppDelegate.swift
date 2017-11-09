@@ -64,13 +64,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         /* If app is not terminated properly, Core Data becomes out of synch
          and leads to NSInvalidArgumentException: -[Company setName:]: “Unrecognized selector sent to instance” */
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Company")
-        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-        do{
-            try CoreDataManager.shared.persistentContainer.viewContext.execute(deleteRequest)
-        } catch let deleteError {
-            print("\(deleteError)")
-        }
+//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Company")
+//        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+//        do{
+//            try CoreDataManager.shared.persistentContainer.viewContext.execute(deleteRequest)
+//        } catch let deleteError {
+//            print("\(deleteError)")
+//        }
     }
     
 }
