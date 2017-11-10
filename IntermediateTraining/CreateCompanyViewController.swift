@@ -9,9 +9,10 @@
 import UIKit
 import CoreData
 
+// MARK: - CreateCompanyViewController
 class CreateCompanyViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
-    // MARK - Properties
+    // MARK: - Properties
     
     var delegate: CreateCompanyControllerDelegate?
     var company: Company? {
@@ -54,7 +55,7 @@ class CreateCompanyViewController: UIViewController, UINavigationControllerDeleg
         return dp
     }()
     
-    // MARK - ViewController Functions
+    // MARK: - ViewController Functions
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,7 +70,7 @@ class CreateCompanyViewController: UIViewController, UINavigationControllerDeleg
         navigationItem.title = company == nil ? "Create Company" : "Edit Company"
     }
     
-    // MARK - Private Functions
+    // MARK: - Private Functions
     
     @objc private func handleSelectPhoto() {
         print("Trying to select photo...")

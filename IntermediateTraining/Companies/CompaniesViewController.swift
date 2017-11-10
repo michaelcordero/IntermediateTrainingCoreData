@@ -11,10 +11,10 @@ import CoreData
 
 class CompaniesViewController: UITableViewController, CreateCompanyControllerDelegate {
     
-    // MARK - Properties
+    // MARK: - Properties
     var companies = [Company]()
     
-    // MARK - ViewController Functions
+    // MARK: - ViewController Functions
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,11 +28,11 @@ class CompaniesViewController: UITableViewController, CreateCompanyControllerDel
         tableView.backgroundColor = UIColor.navy
         //tableView.separatorStyle = .none       //makes line seperators go away within table
         tableView.tableFooterView = UIView()    //makes line separators go away within background
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
+        tableView.register(CompanyCell.self, forCellReuseIdentifier: "cellId")
         tableView.separatorColor = .white
     }
     
-    // MARK - Protocols
+    // MARK: - Protocols
     func didEditCompany(company: Company) {
         //update tableview somehow
         let row = companies.index(of: company)
@@ -46,7 +46,7 @@ class CompaniesViewController: UITableViewController, CreateCompanyControllerDel
         tableView.insertRows(at: [newIndexPath], with: .automatic)
     }
     
-    // MARK - Table Functions
+    // MARK: - Table Functions
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return companies.count
@@ -72,38 +72,19 @@ class CompaniesViewController: UITableViewController, CreateCompanyControllerDel
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //Object References
-        let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath)
-        let company: Company = companies[indexPath.row]
-
-        // Table cell settings
-        cell.backgroundColor = UIColor.teal
-        if let name = company.name, let founded = company.founded {
-            // MMM dd, YYYY
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MMM dd, yyyy"
-            let foundedDateString = dateFormatter.string(from: founded)
-            let dateString = "\(name) - Founded: \(foundedDateString)"
-            cell.textLabel?.text = dateString
-        } else {
-            cell.textLabel?.text = company.name
-        }
-        //cell.textLabel?.text = "\(company.name) - Founded: \(company.founded)"
-        cell.textLabel?.textColor = UIColor.white
-        cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        cell.imageView?.image = UIImage(data: company.imageData!) ?? #imageLiteral(resourceName: "select-photo")
-        cell.imageView?.layer.cornerRadius = (cell.imageView?.frame.width)! / 2  //makes image circular
-        cell.imageView?.clipsToBounds = true       //makes image circle
-        cell.imageView?.layer.borderColor = UIColor.navy.cgColor
-        cell.imageView?.layer.borderWidth = 2
+        let cell: CompanyCell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! CompanyCell
+        cell.company = companies[indexPath.row]
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
     }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
             let company = self.companies[indexPath.row]
             print("Attempting to delete company: ", company.name ?? "")
-            
             // remove company from tableView
             self.companies.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
@@ -132,7 +113,7 @@ class CompaniesViewController: UITableViewController, CreateCompanyControllerDel
         present(navController, animated: true, completion: nil)
     }
     
-    // MARK - Controller Functions
+    // MARK: - Controller Functions
     
     @objc private func handleAddCompany() {
         let createVC = CreateCompanyViewController()
@@ -165,7 +146,6 @@ class CompaniesViewController: UITableViewController, CreateCompanyControllerDel
     private func fetchCompanies() {
         let fetchRequest = NSFetchRequest<Company>(entityName: "Company")
         let context = CoreDataManager.shared.persistentContainer.viewContext
-        //fetch companies
         do{
             let companies = try context.fetch(fetchRequest)
             self.companies = companies
