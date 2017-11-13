@@ -9,7 +9,6 @@
 import UIKit
 import CoreData
 
-// MARK: - CreateCompanyViewController
 class CreateCompanyViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     // MARK: - Properties
