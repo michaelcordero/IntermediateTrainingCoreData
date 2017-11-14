@@ -24,6 +24,9 @@ class CreateEmployeeViewController: UIViewController {
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
+    
+    // MARK: - Delegate
+    var delegate: CreateEmployeeControllerDelegate?
 
     // MARK: - Controller
     override func viewDidLoad() {
@@ -45,12 +48,12 @@ class CreateEmployeeViewController: UIViewController {
     @objc private func handleSave() {
         print("Saving employee...")
         guard let employeeName = nameTextField.text else { return }
-        let saveError = CoreDataManager.shared.createEmployee(employeeName: employeeName)
-        if let error = saveError {
+        let tuple: (Employee?, Error?) = CoreDataManager.shared.createEmployee(employeeName: employeeName)
+        if let error = tuple.1 {
             let alert = UIAlertController(title: "Employee could not be saved!", message: error.localizedDescription, preferredStyle: .alert)
             present(alert, animated: true, completion: nil)
         } else {
-            dismiss(animated: true, completion: nil)
+            dismiss(animated: true, completion: {self.delegate?.didAddEmployee(employee: tuple.0!)})
         }
         
     }
