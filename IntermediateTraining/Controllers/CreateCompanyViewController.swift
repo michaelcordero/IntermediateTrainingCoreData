@@ -151,15 +151,8 @@ class CreateCompanyViewController: UIViewController, UINavigationControllerDeleg
     }
     
     private func setupUI() {
-        //Light Blue Background View
-        let lightBlueBackgroundView = UIView()
-        view.addSubview(lightBlueBackgroundView)
-        lightBlueBackgroundView.backgroundColor = UIColor.lightBlue
-        lightBlueBackgroundView.translatesAutoresizingMaskIntoConstraints = false
-        lightBlueBackgroundView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        lightBlueBackgroundView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        lightBlueBackgroundView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        lightBlueBackgroundView.heightAnchor.constraint(equalToConstant: 350).isActive = true
+        //LightBlueBackgroundView
+        let lightBlueBackgroundView: UIView = setupLightBlueBackgroundView(height: 350)
         
         //Company Image View
         view.addSubview(companyImageView)
@@ -190,8 +183,6 @@ class CreateCompanyViewController: UIViewController, UINavigationControllerDeleg
         datePicker.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         datePicker.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         datePicker.bottomAnchor.constraint(equalTo: lightBlueBackgroundView.bottomAnchor).isActive = true
-        
-        
     }
 }
 

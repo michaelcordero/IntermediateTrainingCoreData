@@ -23,4 +23,17 @@ extension UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    func setupLightBlueBackgroundView(height: CGFloat) -> UIView {
+        //Light Blue Background View
+        let lightBlueBackgroundView = UIView()
+        view.addSubview(lightBlueBackgroundView)
+        lightBlueBackgroundView.backgroundColor = UIColor.lightBlue
+        lightBlueBackgroundView.translatesAutoresizingMaskIntoConstraints = false
+        lightBlueBackgroundView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        lightBlueBackgroundView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        lightBlueBackgroundView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        lightBlueBackgroundView.heightAnchor.constraint(equalToConstant: height).isActive = true
+        return lightBlueBackgroundView
+    }
+    
 }
