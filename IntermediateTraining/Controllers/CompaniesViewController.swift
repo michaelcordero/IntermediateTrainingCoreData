@@ -24,7 +24,7 @@ class CompaniesViewController: UITableViewController {
         // Create Navigation Controller UI
         view.backgroundColor = UIColor.white
         navigationItem.title = "Companies"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus").withRenderingMode(UIImageRenderingMode.alwaysOriginal), style: .plain, target: self, action: #selector(handleAddCompany))
+        setupPlusButtonInNavBar(selector: #selector(handleAddCompany))
         tableView.backgroundColor = UIColor.navy
         //tableView.separatorStyle = .none       //makes line seperators go away within table
         tableView.tableFooterView = UIView()    //makes line separators go away within background
@@ -36,7 +36,7 @@ class CompaniesViewController: UITableViewController {
     
     @objc private func handleAddCompany() {
         let createVC = CreateCompanyViewController()
-        let navController = CustomNavigationController(rootViewController: createVC)
+        let navController = UINavigationController(rootViewController: createVC)
         createVC.delegate = self
         present(navController, animated: true, completion: nil)
         print("Adding company..")

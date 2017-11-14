@@ -12,6 +12,13 @@ import UIKit
 extension CompaniesViewController {
     // MARK: - Table Functions
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let company = self.companies[indexPath.row]
+        let employeesController = EmployeesTableViewController()
+        employeesController.company = company
+        navigationController?.pushViewController(employeesController, animated: true)
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return companies.count
     }
@@ -73,7 +80,8 @@ extension CompaniesViewController {
         let editCompanyController = CreateCompanyViewController()
         editCompanyController.delegate = self
         editCompanyController.company = companies[indexPath.row]
-        let navController = CustomNavigationController(rootViewController: editCompanyController)
+        let navController = UINavigationController(rootViewController: editCompanyController)
         present(navController, animated: true, completion: nil)
     }
+    
 }

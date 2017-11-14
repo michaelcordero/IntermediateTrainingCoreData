@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow()
         window?.makeKeyAndVisible()
         let companies = CompaniesViewController()
-        let nav: UINavigationController = CustomNavigationController(rootViewController: companies)
+        let nav: UINavigationController = UINavigationController(rootViewController: companies)
         window?.rootViewController = nav
         return true
     }
@@ -64,11 +64,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     }
     
-}
-
-class CustomNavigationController: UINavigationController {
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
 }
 

@@ -1,8 +1,8 @@
 //
-//  UINavigationControllerExtension.swift
+//  UINavigationController+UIStatusBarStyle.swift
 //  IntermediateTraining
 //
-//  Created by Michael Cordero on 11/7/17.
+//  Created by Michael Cordero on 11/13/17.
 //  Copyright © 2017 Codec Software. All rights reserved.
 //
 

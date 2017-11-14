@@ -60,7 +60,7 @@ class CreateCompanyViewController: UIViewController, UINavigationControllerDeleg
         super.viewDidLoad()
         setupUI()
         view.backgroundColor = UIColor.navy
-        navigationItem.leftBarButtonItem = UIBarButtonItem.init(title: "Cancel", style: .plain, target: self, action: #selector(handleCancel))
+        setupCancelButton()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(handleSave))
     }
 
@@ -77,10 +77,6 @@ class CreateCompanyViewController: UIViewController, UINavigationControllerDeleg
         imagePickerController.delegate = self
         imagePickerController.allowsEditing = true
         present(imagePickerController, animated: true, completion: nil)
-    }
-
-    @objc private func handleCancel() {
-        dismiss(animated: true, completion: nil)
     }
     
     @objc private func handleSave() {
