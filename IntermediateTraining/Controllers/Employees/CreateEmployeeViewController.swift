@@ -11,6 +11,8 @@ import UIKit
 class CreateEmployeeViewController: UIViewController {
     
     // MARK: - Properties
+    var company: Company?
+    
     let nameLabel: UILabel = {
         let label = UILabel()
         label.text = "Name"
@@ -48,7 +50,8 @@ class CreateEmployeeViewController: UIViewController {
     @objc private func handleSave() {
         print("Saving employee...")
         guard let employeeName = nameTextField.text else { return }
-        let tuple: (Employee?, Error?) = CoreDataManager.shared.createEmployee(employeeName: employeeName)
+        guard let company = self.company else { return }
+        let tuple: (Employee?, Error?) = CoreDataManager.shared.createEmployee(employeeName: employeeName, company: company)
         if let error = tuple.1 {
             let alert = UIAlertController(title: "Employee could not be saved!", message: error.localizedDescription, preferredStyle: .alert)
             present(alert, animated: true, completion: nil)

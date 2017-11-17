@@ -45,23 +45,15 @@ class EmployeesTableViewController: UITableViewController, CreateEmployeeControl
     @objc private func handleAdd() {
         print("Trying to add an employee..")
         let createEVC = CreateEmployeeViewController()
+        createEVC.company = company
         createEVC.delegate = self
         let navVC = UINavigationController(rootViewController: createEVC)
         present(navVC, animated: true, completion: nil)
     }
     
     private func fetchEmployees() {
-        print("Trying to fetch employees...")
-        let context = CoreDataManager.shared.persistentContainer.viewContext
-        let request = NSFetchRequest<Employee>(entityName: "Employee")
-        do {
-            let employees = try context.fetch(request)
-            self.employees = employees
-            //employees.forEach({print("Employee name: ", $0.name ?? "")})
-        } catch let fetchError {
-            print("Failed to fetch employees: ", fetchError)
-        }
-        
+        guard let companyEmployees = company?.employees?.allObjects as? [Employee] else { return }
+        self.employees = companyEmployees
     }
 
     // MARK: - Table view data source
