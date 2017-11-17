@@ -67,9 +67,14 @@ class EmployeesTableViewController: UITableViewController, CreateEmployeeControl
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
         let employee = employees[indexPath.row]
         cell.textLabel?.text = employee.name
-        if let taxId = employee.employeeInformation?.taxId {
-            cell.textLabel?.text = "\(employee.name ?? "") \(taxId)"
+        if let birthday = employee.employeeInformation?.birthday {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MMM dd, yyyy"
+            cell.textLabel?.text = "\(employee.name ?? "") \(dateFormatter.string(from: birthday)) "
         }
+//        if let taxId = employee.employeeInformation?.taxId {
+//            cell.textLabel?.text = "\(employee.name ?? "") \(taxId)"
+//        }
         cell.backgroundColor = UIColor.teal
         cell.textLabel?.textColor = UIColor.white
         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 15)

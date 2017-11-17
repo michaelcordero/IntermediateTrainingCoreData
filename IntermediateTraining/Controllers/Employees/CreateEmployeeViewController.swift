@@ -27,6 +27,20 @@ class CreateEmployeeViewController: UIViewController {
         return textField
     }()
     
+    let birthdayLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Birthday"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let birthdayTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "MM/dd/yyyy"
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
+    
     // MARK: - Delegate
     var delegate: CreateEmployeeControllerDelegate?
 
@@ -36,7 +50,6 @@ class CreateEmployeeViewController: UIViewController {
         view.backgroundColor = UIColor.navy
         navigationItem.title = "Create Employee"
         setupCancelButton()
-        _ = setupLightBlueBackgroundView(height: 50)
         setupUI()
         navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "Save", style: .plain, target: self, action: #selector(handleSave))
     }
@@ -49,9 +62,25 @@ class CreateEmployeeViewController: UIViewController {
     // MARK: - Private
     @objc private func handleSave() {
         print("Saving employee...")
+        // Table Columns to be saved
         guard let employeeName = nameTextField.text else { return }
         guard let company = self.company else { return }
-        let tuple: (Employee?, Error?) = CoreDataManager.shared.createEmployee(employeeName: employeeName, company: company)
+        guard let birthdayText = birthdayTextField.text else { return }
+        
+        // perform validation
+        if birthdayText.isEmpty {
+            showError(title: "Empty Birthday", message: "Please enter a birthday")
+            return
+        }
+
+        //Validate birthdayText and create date object
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        guard let birthdayDate = dateFormatter.date(from: birthdayText) else {
+            showError(title: "Bad Date", message: "Birthday date entered not valid.")
+            return }
+        //Attempt save
+        let tuple: (Employee?, Error?) = CoreDataManager.shared.createEmployee(employeeName: employeeName, birthday: birthdayDate, company: company)
         if let error = tuple.1 {
             let alert = UIAlertController(title: "Employee could not be saved!", message: error.localizedDescription, preferredStyle: .alert)
             present(alert, animated: true, completion: nil)
@@ -61,7 +90,16 @@ class CreateEmployeeViewController: UIViewController {
         
     }
     
+    private func showError(title: String, message: String) {
+        let alertController = UIAlertController.init(title: title, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction.init(title: "OK", style: .default, handler: nil))
+        present(alertController, animated: true, completion: nil)
+    }
+    
     private func setupUI() -> Void {
+        // setup lightBlueBackground
+        _ = setupLightBlueBackgroundView(height: 100)
+        
         //Name Label
         view.addSubview(nameLabel)
         nameLabel.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
@@ -77,6 +115,21 @@ class CreateEmployeeViewController: UIViewController {
         nameTextField.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         nameTextField.bottomAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
         nameTextField.topAnchor.constraint(equalTo: nameLabel.topAnchor).isActive = true
+        
+        //Birthday Label
+        view.addSubview(birthdayLabel)
+        birthdayLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
+        birthdayLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16).isActive = true
+        birthdayLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        birthdayLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        birthdayLabel.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 50)
+        
+        //Birthday Text Field
+        view.addSubview(birthdayTextField)
+        birthdayTextField.leftAnchor.constraint(equalTo: birthdayLabel.rightAnchor).isActive = true
+        birthdayTextField.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        birthdayTextField.bottomAnchor.constraint(equalTo: birthdayLabel.bottomAnchor).isActive = true
+        birthdayTextField.topAnchor.constraint(equalTo: birthdayLabel.topAnchor).isActive = true
     }
 
 }
