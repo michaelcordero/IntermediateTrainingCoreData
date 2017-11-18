@@ -25,6 +25,7 @@
 		73E3D8921FAE193300AD6853 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73E3D8901FAE193300AD6853 /* LaunchScreen.storyboard */; };
 		73E3D89D1FAE193400AD6853 /* IntermediateTrainingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E3D89C1FAE193400AD6853 /* IntermediateTrainingTests.swift */; };
 		73E3D8A81FAE1D3600AD6853 /* CompaniesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E3D8A71FAE1D3600AD6853 /* CompaniesViewController.swift */; };
+		73E5B9151FC0E0BC002C3E88 /* IndentedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E5B9141FC0E0BC002C3E88 /* IndentedLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,7 @@
 		73E3D89C1FAE193400AD6853 /* IntermediateTrainingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntermediateTrainingTests.swift; sourceTree = "<group>"; };
 		73E3D89E1FAE193400AD6853 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		73E3D8A71FAE1D3600AD6853 /* CompaniesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompaniesViewController.swift; sourceTree = "<group>"; };
+		73E5B9141FC0E0BC002C3E88 /* IndentedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndentedLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +165,7 @@
 				73A13CAF1FBA9B71002092DF /* Extensions */,
 				73A13CB81FBAA204002092DF /* Protocols */,
 				73A13CB91FBAA236002092DF /* Singletons */,
+				73E5B9131FC0E05F002C3E88 /* Subclasses */,
 				73E3D88E1FAE193300AD6853 /* Assets.xcassets */,
 				73E3D8901FAE193300AD6853 /* LaunchScreen.storyboard */,
 				73E3D8931FAE193400AD6853 /* Info.plist */,
@@ -178,6 +181,14 @@
 				73E3D89E1FAE193400AD6853 /* Info.plist */,
 			);
 			path = IntermediateTrainingTests;
+			sourceTree = "<group>";
+		};
+		73E5B9131FC0E05F002C3E88 /* Subclasses */ = {
+			isa = PBXGroup;
+			children = (
+				73E5B9141FC0E0BC002C3E88 /* IndentedLabel.swift */,
+			);
+			path = Subclasses;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -292,6 +303,7 @@
 				7330D3B91FBAC5D0005B9537 /* CreateEmployeeControllerDelegate.swift in Sources */,
 				73E3D8851FAE193300AD6853 /* AppDelegate.swift in Sources */,
 				73A13CB71FBAA06B002092DF /* UINavigationController+UIStatusBarStyle.swift in Sources */,
+				73E5B9151FC0E0BC002C3E88 /* IndentedLabel.swift in Sources */,
 				73A517161FB569AD0067E7EC /* CompanyCell.swift in Sources */,
 				73272D8A1FAF9DB600680607 /* CoreDataManager.swift in Sources */,
 				73E3D88D1FAE193300AD6853 /* IntermediateTraining.xcdatamodeld in Sources */,
