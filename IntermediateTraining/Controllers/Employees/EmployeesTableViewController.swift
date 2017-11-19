@@ -18,10 +18,7 @@ class EmployeesTableViewController: UITableViewController, CreateEmployeeControl
     var seniorManagement = [Employee]()
     var staff = [Employee]()
     var allEmployees = [[Employee]]()
-    var employeeTypes: [String] = [EmployeeType.Executive.rawValue,
-                                   EmployeeType.SeniorManagement.rawValue,
-                                   EmployeeType.Staff.rawValue,
-                                   EmployeeType.Intern.rawValue]
+    var employeeTypes: [EmployeeType] = [.Executive, .SeniorManagement, .Staff, .Intern]
     
     // MARK: - Controller Functions
     override func viewDidLoad() {
@@ -62,7 +59,7 @@ class EmployeesTableViewController: UITableViewController, CreateEmployeeControl
         guard let companyEmployees = company?.employees?.allObjects as? [Employee] else { return }
         allEmployees = [] //fixes bug
         employeeTypes.forEach { (employeeType) in
-            allEmployees.append(companyEmployees.filter({ $0.type == employeeType}))
+            allEmployees.append(companyEmployees.filter({ $0.type == employeeType.rawValue}))
         }
     }
     
@@ -74,7 +71,7 @@ class EmployeesTableViewController: UITableViewController, CreateEmployeeControl
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let label = IndentedLabel()
-        label.text = employeeTypes[section]
+        label.text = employeeTypes[section].rawValue
         label.backgroundColor = UIColor.lightBlue
         label.textColor = UIColor.navy
         label.font = UIFont.boldSystemFont(ofSize: 16)
@@ -109,7 +106,7 @@ class EmployeesTableViewController: UITableViewController, CreateEmployeeControl
     
     // MARK: - Protocol
     func didAddEmployee(employee: Employee) {
-        guard let section = employeeTypes.index(of: employee.type!) else { return }
+        guard let section = employeeTypes.index(of: EmployeeType(rawValue: employee.type!)!) else { return }
         let row = allEmployees[section].count
         let insertionIndexPath = IndexPath.init(row: row, section: section)
         allEmployees[section].append(employee)
