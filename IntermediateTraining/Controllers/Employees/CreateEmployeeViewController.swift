@@ -41,6 +41,15 @@ class CreateEmployeeViewController: UIViewController {
         return textField
     }()
     
+    let employeeTypeSegmentedControl: UISegmentedControl = {
+        let types = ["Executive","Senior Management","Staff"]
+        let sc = UISegmentedControl(items: types)
+        sc.selectedSegmentIndex = 0
+        sc.tintColor = UIColor.navy
+        sc.translatesAutoresizingMaskIntoConstraints = false
+        return sc
+    }()
+    
     // MARK: - Delegate
     var delegate: CreateEmployeeControllerDelegate?
 
@@ -79,8 +88,10 @@ class CreateEmployeeViewController: UIViewController {
         guard let birthdayDate = dateFormatter.date(from: birthdayText) else {
             showError(title: "Bad Date", message: "Birthday date entered not valid.")
             return }
+        
+        guard let employeeType = employeeTypeSegmentedControl.titleForSegment(at: employeeTypeSegmentedControl.selectedSegmentIndex) else { return }
         //Attempt save
-        let tuple: (Employee?, Error?) = CoreDataManager.shared.createEmployee(employeeName: employeeName, birthday: birthdayDate, company: company)
+        let tuple: (Employee?, Error?) = CoreDataManager.shared.createEmployee(employeeName: employeeName, employeeType: employeeType, birthday: birthdayDate, company: company)
         if let error = tuple.1 {
             let alert = UIAlertController(title: "Employee could not be saved!", message: error.localizedDescription, preferredStyle: .alert)
             present(alert, animated: true, completion: nil)
@@ -98,7 +109,7 @@ class CreateEmployeeViewController: UIViewController {
     
     private func setupUI() -> Void {
         // setup lightBlueBackground
-        _ = setupLightBlueBackgroundView(height: 100)
+        _ = setupLightBlueBackgroundView(height: 150)
         
         //Name Label
         view.addSubview(nameLabel)
@@ -130,6 +141,13 @@ class CreateEmployeeViewController: UIViewController {
         birthdayTextField.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         birthdayTextField.bottomAnchor.constraint(equalTo: birthdayLabel.bottomAnchor).isActive = true
         birthdayTextField.topAnchor.constraint(equalTo: birthdayLabel.topAnchor).isActive = true
+        
+        //UISegmented Control
+        view.addSubview(employeeTypeSegmentedControl)
+        employeeTypeSegmentedControl.topAnchor.constraint(equalTo: birthdayLabel.bottomAnchor, constant: 0).isActive = true
+        employeeTypeSegmentedControl.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16).isActive = true
+        employeeTypeSegmentedControl.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16).isActive = true
+        employeeTypeSegmentedControl.heightAnchor.constraint(equalToConstant: 34).isActive = true
     }
 
 }
