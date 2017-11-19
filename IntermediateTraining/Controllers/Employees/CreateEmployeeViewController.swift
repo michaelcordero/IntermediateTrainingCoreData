@@ -42,8 +42,8 @@ class CreateEmployeeViewController: UIViewController {
     }()
     
     let employeeTypeSegmentedControl: UISegmentedControl = {
-        let types = ["Executive","Senior Management","Staff"]
-        let sc = UISegmentedControl(items: types)
+        let types: [EmployeeType] = [.Executive, .SeniorManagement, .Staff, .Intern]
+        let sc = UISegmentedControl(items: types.map({ return $0.rawValue }))
         sc.selectedSegmentIndex = 0
         sc.tintColor = UIColor.navy
         sc.translatesAutoresizingMaskIntoConstraints = false

@@ -13,12 +13,15 @@ class EmployeesTableViewController: UITableViewController, CreateEmployeeControl
     
     // MARK: - Properties
     var company: Company?
-    var employees: [Employee] = [Employee]()
     let cellID: String = "employee_cell"
-    var shortNameEmployees = [Employee]()
-    var longNameEmployees = [Employee]()
-    var reallyLongNameEmployees = [Employee]()
+    var executives = [Employee]()
+    var seniorManagement = [Employee]()
+    var staff = [Employee]()
     var allEmployees = [[Employee]]()
+    var employeeTypes: [String] = [EmployeeType.Executive.rawValue,
+                         EmployeeType.SeniorManagement.rawValue,
+                         EmployeeType.Staff.rawValue,
+                         EmployeeType.Intern.rawValue]
     
     // MARK: - Controller Functions
     override func viewDidLoad() {
@@ -57,11 +60,14 @@ class EmployeesTableViewController: UITableViewController, CreateEmployeeControl
     
     private func fetchEmployees() {
         guard let companyEmployees = company?.employees?.allObjects as? [Employee] else { return }
-        //self.shortNameEmployees = companyEmployees.filter({($0.name?.characters.count)! < 6}) <- more risky!
-        self.shortNameEmployees = companyEmployees.filter({ guard let chars = $0.name?.count else { return false }; return chars < 6})
-        self.longNameEmployees = companyEmployees.filter({ guard let chars = $0.name?.count else { return false }; return chars > 6 && chars < 9})
-        self.reallyLongNameEmployees = companyEmployees.filter({ guard let chars = $0.name?.count else { return false }; return chars > 9})
-        self.allEmployees = [shortNameEmployees, longNameEmployees, reallyLongNameEmployees]
+        allEmployees = [] //fixes bug
+        employeeTypes.forEach { (employeeType) in
+            allEmployees.append(companyEmployees.filter({ $0.type == employeeType}))
+        }
+//        self.executives = companyEmployees.filter({ guard let type = $0.type else { return false }; return type == EmployeeType.Executive.rawValue })
+//        self.seniorManagement = companyEmployees.filter({ guard let type = $0.type else { return false }; return type == EmployeeType.SeniorManagement.rawValue })
+//        self.staff = companyEmployees.filter({ guard let type = $0.type else { return false }; return type == EmployeeType.Staff.rawValue })
+//        self.allEmployees = [executives, seniorManagement, staff]
     }
     
     // MARK: - Table view data source
@@ -72,7 +78,7 @@ class EmployeesTableViewController: UITableViewController, CreateEmployeeControl
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let label = IndentedLabel()
-        label.text = section == 0 ? "Short names" : section == 1 ? "Long names" : "Really Long Names"
+        label.text = employeeTypes[section]
         label.backgroundColor = UIColor.lightBlue
         label.textColor = UIColor.navy
         label.font = UIFont.boldSystemFont(ofSize: 16)
@@ -107,8 +113,11 @@ class EmployeesTableViewController: UITableViewController, CreateEmployeeControl
     
     // MARK: - Protocol
     func didAddEmployee(employee: Employee) {
-        employees.append(employee)
-        tableView.reloadData()
+        guard let section = employeeTypes.index(of: employee.type!) else { return }
+        let row = allEmployees[section].count
+        let insertionIndexPath = IndexPath.init(row: row, section: section)
+        allEmployees[section].append(employee)
+        tableView.insertRows(at: [insertionIndexPath], with: .middle)
     }
     
 }
