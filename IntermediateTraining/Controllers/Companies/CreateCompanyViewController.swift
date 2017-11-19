@@ -19,7 +19,7 @@ class CreateCompanyViewController: UIViewController, UINavigationControllerDeleg
             nameTextField.text = company?.name
             guard let founded = company?.founded  else { return }
             datePicker.date = founded
-            companyImageView.image = UIImage(data: (company?.imageData!)!) ?? #imageLiteral(resourceName: "select-photo")
+            companyImageView.image = UIImage(data: company?.imageData ?? UIImagePNGRepresentation(#imageLiteral(resourceName: "select-photo"))!)
             setupCircularImageStyle()
         }
     }

@@ -19,9 +19,9 @@ class EmployeesTableViewController: UITableViewController, CreateEmployeeControl
     var staff = [Employee]()
     var allEmployees = [[Employee]]()
     var employeeTypes: [String] = [EmployeeType.Executive.rawValue,
-                         EmployeeType.SeniorManagement.rawValue,
-                         EmployeeType.Staff.rawValue,
-                         EmployeeType.Intern.rawValue]
+                                   EmployeeType.SeniorManagement.rawValue,
+                                   EmployeeType.Staff.rawValue,
+                                   EmployeeType.Intern.rawValue]
     
     // MARK: - Controller Functions
     override func viewDidLoad() {
@@ -64,10 +64,6 @@ class EmployeesTableViewController: UITableViewController, CreateEmployeeControl
         employeeTypes.forEach { (employeeType) in
             allEmployees.append(companyEmployees.filter({ $0.type == employeeType}))
         }
-//        self.executives = companyEmployees.filter({ guard let type = $0.type else { return false }; return type == EmployeeType.Executive.rawValue })
-//        self.seniorManagement = companyEmployees.filter({ guard let type = $0.type else { return false }; return type == EmployeeType.SeniorManagement.rawValue })
-//        self.staff = companyEmployees.filter({ guard let type = $0.type else { return false }; return type == EmployeeType.Staff.rawValue })
-//        self.allEmployees = [executives, seniorManagement, staff]
     }
     
     // MARK: - Table view data source

@@ -19,8 +19,9 @@ class CompaniesViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.companies = CoreDataManager.shared.fetchCompanies()
-        // Create Reset Button
-        navigationItem.leftBarButtonItem = UIBarButtonItem.init(title: "Reset", style: .plain, target: self, action: #selector(handleReset))
+        // Create Buttons
+        navigationItem.leftBarButtonItems = [UIBarButtonItem.init(title: "Reset", style: .plain, target: self, action: #selector(handleReset)),
+                                             UIBarButtonItem.init(title: "Do Work", style: .plain, target: self, action: #selector(doWork))]
         // Create Navigation Controller UI
         view.backgroundColor = UIColor.white
         navigationItem.title = "Companies"
@@ -54,6 +55,22 @@ class CompaniesViewController: UITableViewController {
         companies.removeAll()
         tableView.deleteRows(at: indexPathsToRemove, with: .fade)
         tableView.reloadData()
+    }
+    
+    @objc private func doWork() {
+        print("Trying to do work...")
+        CoreDataManager.shared.persistentContainer.performBackgroundTask({ (backgroundContext) in
+            (0...10000).forEach { (value) in
+                print(value)
+                let company = Company(context: backgroundContext)
+                company.name = String(value)
+            }
+            do {
+                try backgroundContext.save()
+            } catch let err {
+                print("Failed to save: ", err)
+            }
+        })
     }
   
 }
