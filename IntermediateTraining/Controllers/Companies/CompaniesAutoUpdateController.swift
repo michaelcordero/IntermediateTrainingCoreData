@@ -36,9 +36,10 @@ class CompaniesAutoUpdateController: UITableViewController, NSFetchedResultsCont
                                              UIBarButtonItem.init(title: "Delete", style: .plain, target: self, action: #selector(handleDelete))]
         tableView.backgroundColor = UIColor.navy
         tableView.register(CompanyCell.self, forCellReuseIdentifier: cellId)
-        fetchedResultsController.fetchedObjects?.forEach({ (company) in
-            print(company.name ?? "")
-        })
+//        fetchedResultsController.fetchedObjects?.forEach({ (company) in
+//            print(company.name ?? "")
+//        })
+        Service.shared.downloadCompanies()
     }
     
     // MARK: - UITableViewController Functions
@@ -87,7 +88,7 @@ class CompaniesAutoUpdateController: UITableViewController, NSFetchedResultsCont
     
     @objc private func handleDelete() {
         let request: NSFetchRequest<Company> = Company.fetchRequest()
-        request.predicate = NSPredicate(format: "name CONTAINS %@", "B")
+        //request.predicate = NSPredicate(format: "name CONTAINS %@", "B")
         let context = CoreDataManager.shared.persistentContainer.viewContext
         let companiesWithB = try? context.fetch(request)
         companiesWithB?.forEach { context.delete($0) }
