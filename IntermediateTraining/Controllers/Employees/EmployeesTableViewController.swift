@@ -89,11 +89,11 @@ class EmployeesTableViewController: UITableViewController, CreateEmployeeControl
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
         let employee = allEmployees[indexPath.section][indexPath.row]
-        cell.textLabel?.text = employee.name
+        cell.textLabel?.text = employee.fullName
         if let birthday = employee.employeeInformation?.birthday {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MMM dd, yyyy"
-            cell.textLabel?.text = "\(employee.name ?? "") \(dateFormatter.string(from: birthday)) "
+            cell.textLabel?.text = "\(employee.fullName ?? "") \(dateFormatter.string(from: birthday)) "
         }
         //        if let taxId = employee.employeeInformation?.taxId {
         //            cell.textLabel?.text = "\(employee.name ?? "") \(taxId)"

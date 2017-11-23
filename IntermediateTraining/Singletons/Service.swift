@@ -40,7 +40,7 @@ struct Service {
                     // Decode Companies' Employees
                     $0.employees?.forEach({
                         let employee = Employee(context: privateContext)
-                        employee.name = $0.name
+                        employee.fullName = $0.name
                         employee.type = $0.type
                         employee.company = company
                         // setup EmployeeInformation
