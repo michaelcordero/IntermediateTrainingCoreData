@@ -27,6 +27,8 @@
 		73E3D89D1FAE193400AD6853 /* IntermediateTrainingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E3D89C1FAE193400AD6853 /* IntermediateTrainingTests.swift */; };
 		73E3D8A81FAE1D3600AD6853 /* CompaniesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E3D8A71FAE1D3600AD6853 /* CompaniesViewController.swift */; };
 		73E5B9151FC0E0BC002C3E88 /* IndentedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E5B9141FC0E0BC002C3E88 /* IndentedLabel.swift */; };
+		73F607F81FC66B8B00EE2660 /* Modelv1.1_2.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 73F607F71FC66B8B00EE2660 /* Modelv1.1_2.xcmappingmodel */; };
+		73F607FA1FC66CAE00EE2660 /* CustomMigrationPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F607F91FC66CAE00EE2660 /* CustomMigrationPolicy.swift */; };
 		73FEB1601FC5191400F4F03A /* CompaniesAutoUpdateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FEB15F1FC5191400F4F03A /* CompaniesAutoUpdateController.swift */; };
 		73FEB1621FC63B0400F4F03A /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FEB1611FC63B0400F4F03A /* Service.swift */; };
 /* End PBXBuildFile section */
@@ -66,6 +68,9 @@
 		73E3D89E1FAE193400AD6853 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		73E3D8A71FAE1D3600AD6853 /* CompaniesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompaniesViewController.swift; sourceTree = "<group>"; };
 		73E5B9141FC0E0BC002C3E88 /* IndentedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndentedLabel.swift; sourceTree = "<group>"; };
+		73F607F61FC66AA800EE2660 /* IntermediateTraining_v1. 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "IntermediateTraining_v1. 2.xcdatamodel"; sourceTree = "<group>"; };
+		73F607F71FC66B8B00EE2660 /* Modelv1.1_2.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = Modelv1.1_2.xcmappingmodel; sourceTree = "<group>"; };
+		73F607F91FC66CAE00EE2660 /* CustomMigrationPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMigrationPolicy.swift; sourceTree = "<group>"; };
 		73FEB15F1FC5191400F4F03A /* CompaniesAutoUpdateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompaniesAutoUpdateController.swift; sourceTree = "<group>"; };
 		73FEB1611FC63B0400F4F03A /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		73FEB1631FC6569C00F4F03A /* IntermediateTraining_v1.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = IntermediateTraining_v1.1.xcdatamodel; sourceTree = "<group>"; };
@@ -178,7 +183,9 @@
 				73E3D88E1FAE193300AD6853 /* Assets.xcassets */,
 				73E3D8901FAE193300AD6853 /* LaunchScreen.storyboard */,
 				73E3D8931FAE193400AD6853 /* Info.plist */,
+				73F607F71FC66B8B00EE2660 /* Modelv1.1_2.xcmappingmodel */,
 				73E3D88B1FAE193300AD6853 /* IntermediateTraining.xcdatamodeld */,
+				73F607F91FC66CAE00EE2660 /* CustomMigrationPolicy.swift */,
 			);
 			path = IntermediateTraining;
 			sourceTree = "<group>";
@@ -315,11 +322,13 @@
 				7330D3B91FBAC5D0005B9537 /* CreateEmployeeControllerDelegate.swift in Sources */,
 				73E3D8851FAE193300AD6853 /* AppDelegate.swift in Sources */,
 				73FEB1621FC63B0400F4F03A /* Service.swift in Sources */,
+				73F607FA1FC66CAE00EE2660 /* CustomMigrationPolicy.swift in Sources */,
 				73A13CB71FBAA06B002092DF /* UINavigationController+UIStatusBarStyle.swift in Sources */,
 				73E5B9151FC0E0BC002C3E88 /* IndentedLabel.swift in Sources */,
 				73A517161FB569AD0067E7EC /* CompanyCell.swift in Sources */,
 				73272D8A1FAF9DB600680607 /* CoreDataManager.swift in Sources */,
 				73E3D88D1FAE193300AD6853 /* IntermediateTraining.xcdatamodeld in Sources */,
+				73F607F81FC66B8B00EE2660 /* Modelv1.1_2.xcmappingmodel in Sources */,
 				73DA93521FB183C20033CFFA /* CreateCompanyControllerDelegate.swift in Sources */,
 				73A13CAA1FB95D94002092DF /* CompaniesViewController+CreateCompany.swift in Sources */,
 				73A13CB11FBA9BB4002092DF /* UIViewController+Helpers.swift in Sources */,
@@ -570,10 +579,11 @@
 		73E3D88B1FAE193300AD6853 /* IntermediateTraining.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				73F607F61FC66AA800EE2660 /* IntermediateTraining_v1. 2.xcdatamodel */,
 				73FEB1631FC6569C00F4F03A /* IntermediateTraining_v1.1.xcdatamodel */,
 				73E3D88C1FAE193300AD6853 /* IntermediateTraining.xcdatamodel */,
 			);
-			currentVersion = 73FEB1631FC6569C00F4F03A /* IntermediateTraining_v1.1.xcdatamodel */;
+			currentVersion = 73F607F61FC66AA800EE2660 /* IntermediateTraining_v1. 2.xcdatamodel */;
 			path = IntermediateTraining.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
