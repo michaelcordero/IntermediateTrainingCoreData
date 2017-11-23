@@ -39,10 +39,20 @@ class CompaniesAutoUpdateController: UITableViewController, NSFetchedResultsCont
 //        fetchedResultsController.fetchedObjects?.forEach({ (company) in
 //            print(company.name ?? "")
 //        })
-        Service.shared.downloadCompanies()
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+        refreshControl.tintColor = UIColor.white
+        self.refreshControl = refreshControl
     }
     
     // MARK: - UITableViewController Functions
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let employeesListController = EmployeesTableViewController()
+        employeesListController.company = fetchedResultsController.object(at: indexPath)
+        navigationController?.pushViewController(employeesListController, animated: true)
+    }
+    
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let label = IndentedLabel()
         label.text = fetchedResultsController.sectionIndexTitles[section]
@@ -93,6 +103,11 @@ class CompaniesAutoUpdateController: UITableViewController, NSFetchedResultsCont
         let companiesWithB = try? context.fetch(request)
         companiesWithB?.forEach { context.delete($0) }
         try? context.save()
+    }
+    
+    @objc private func handleRefresh() {
+        Service.shared.downloadCompanies()
+        self.refreshControl?.endRefreshing() //makes drag-down gesture end
     }
     
     // MARK: - NSFetchedResultsControllerDelegate Protocol
