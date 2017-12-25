@@ -10,7 +10,7 @@
         <attribute name="founded" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="imageData" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="numEmployees" attributeType="String" syncable="YES"/>
+        <attribute name="numEmployees" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="officialName" attributeType="String" defaultValueString="NO OFFICIAL NAME" syncable="YES"/>
         <relationship name="employees" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Employee" inverseName="company" inverseEntity="Employee" syncable="YES"/>
     </entity>

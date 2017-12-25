@@ -20,13 +20,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().tintColor = UIColor.white
         UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().barTintColor = UIColor.lightRed
-        UINavigationBar.appearance().prefersLargeTitles = true
+        let device: UIDevice.model_version = UIDevice.model_version(rawValue: UIDevice.current.model_type) ?? UIDevice.model_version.bit_64
+        UINavigationBar.appearance().prefersLargeTitles = device == UIDevice.model_version.iPhone_X_GSM || device == UIDevice.model_version.iPhone_X_CDMA
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
         UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
         /*End */
         window = UIWindow()
         window?.makeKeyAndVisible()
-        let companies = CompaniesAutoUpdateController()
+        let companies = CompaniesViewController()
         let nav: UINavigationController = UINavigationController(rootViewController: companies)
         window?.rootViewController = nav
         return true

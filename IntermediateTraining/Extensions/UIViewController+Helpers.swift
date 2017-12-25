@@ -12,7 +12,7 @@ import UIKit
 extension UIViewController {
     
     func setupPlusButtonInNavBar(selector: Selector) {
-        navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: #imageLiteral(resourceName: "plus"), style: .plain, target: self, action: selector)
+        navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: #imageLiteral(resourceName: "database-add"), style: .plain, target: self, action: selector)
     }
     
     func setupCancelButton() {

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		73189C521FF0E96A008E913B /* UIDevice+Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73189C511FF0E96A008E913B /* UIDevice+Model.swift */; };
 		73272D8A1FAF9DB600680607 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73272D891FAF9DB600680607 /* CoreDataManager.swift */; };
 		7330D3B91FBAC5D0005B9537 /* CreateEmployeeControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7330D3B81FBAC5D0005B9537 /* CreateEmployeeControllerDelegate.swift */; };
 		738BE77B1FC10E2B005259C1 /* EmployeeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738BE77A1FC10E2B005259C1 /* EmployeeType.swift */; };
@@ -44,6 +45,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		73189C511FF0E96A008E913B /* UIDevice+Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Model.swift"; sourceTree = "<group>"; };
+		73189C541FF0ECF0008E913B /* IntermediateTraining-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IntermediateTraining-Bridging-Header.h"; sourceTree = "<group>"; };
 		73272D891FAF9DB600680607 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		7330D3B81FBAC5D0005B9537 /* CreateEmployeeControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEmployeeControllerDelegate.swift; sourceTree = "<group>"; };
 		738BE77A1FC10E2B005259C1 /* EmployeeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeType.swift; sourceTree = "<group>"; };
@@ -122,6 +125,7 @@
 				73A13CB61FBAA06B002092DF /* UINavigationController+UIStatusBarStyle.swift */,
 				73A13CA91FB95D94002092DF /* CompaniesViewController+CreateCompany.swift */,
 				73A13CAB1FB95FBD002092DF /* CompaniesViewController+UITableView.swift */,
+				73189C511FF0E96A008E913B /* UIDevice+Model.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -186,6 +190,7 @@
 				73F607F71FC66B8B00EE2660 /* Modelv1.1_2.xcmappingmodel */,
 				73E3D88B1FAE193300AD6853 /* IntermediateTraining.xcdatamodeld */,
 				73F607F91FC66CAE00EE2660 /* CustomMigrationPolicy.swift */,
+				73189C541FF0ECF0008E913B /* IntermediateTraining-Bridging-Header.h */,
 			);
 			path = IntermediateTraining;
 			sourceTree = "<group>";
@@ -258,7 +263,7 @@
 				TargetAttributes = {
 					73E3D8801FAE193300AD6853 = {
 						CreatedOnToolsVersion = 9.0;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 					73E3D8971FAE193400AD6853 = {
@@ -328,6 +333,7 @@
 				73A517161FB569AD0067E7EC /* CompanyCell.swift in Sources */,
 				73272D8A1FAF9DB600680607 /* CoreDataManager.swift in Sources */,
 				73E3D88D1FAE193300AD6853 /* IntermediateTraining.xcdatamodeld in Sources */,
+				73189C521FF0E96A008E913B /* UIDevice+Model.swift in Sources */,
 				73F607F81FC66B8B00EE2660 /* Modelv1.1_2.xcmappingmodel in Sources */,
 				73DA93521FB183C20033CFFA /* CreateCompanyControllerDelegate.swift in Sources */,
 				73A13CAA1FB95D94002092DF /* CompaniesViewController+CreateCompany.swift in Sources */,
@@ -485,7 +491,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = codec.software.IntermediateTraining;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "IntermediateTraining/IntermediateTraining-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -503,7 +509,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = codec.software.IntermediateTraining;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "IntermediateTraining/IntermediateTraining-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

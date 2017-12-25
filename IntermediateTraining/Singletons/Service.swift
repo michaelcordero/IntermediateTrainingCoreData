@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 struct Service {
     //Singleton
@@ -34,9 +35,19 @@ struct Service {
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "MM/dd/yyyy"
                 jsonCompanies.forEach({
+                    //populate company object
                     let company = Company(context: privateContext)
                     company.name = $0.name
                     company.founded = dateFormatter.date(from: $0.founded)
+                    // handle company photo
+                    let url: URL? = URL.init(string: $0.photoUrl)
+                    guard let photoImageUrl = url else { return }
+                    do {
+                        let photoData: Data = try Data(contentsOf: photoImageUrl)
+                        company.imageData = photoData
+                    } catch let DataInstantiationError {
+                        print("Company Image could not be saved: ", DataInstantiationError)
+                    }
                     // Decode Companies' Employees
                     $0.employees?.forEach({
                         let employee = Employee(context: privateContext)
@@ -65,6 +76,7 @@ struct Service {
 
 struct JSONCompany: Decodable {
     let name: String
+    let photoUrl: String
     let founded: String
     var employees: [JSONEmployee]?
 }

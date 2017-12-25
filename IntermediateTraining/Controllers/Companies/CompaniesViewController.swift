@@ -20,17 +20,20 @@ class CompaniesViewController: UITableViewController {
         super.viewDidLoad()
         self.companies = CoreDataManager.shared.fetchCompanies()
         // Create Buttons
-        navigationItem.leftBarButtonItems = [UIBarButtonItem.init(title: "Reset", style: .plain, target: self, action: #selector(handleReset)),
-                                             UIBarButtonItem.init(title: "Nested Updates", style: .plain, target: self, action: #selector(doNestedUpdates))]
+        navigationItem.title = "Companies"
+        navigationItem.leftBarButtonItem = UIBarButtonItem.init(image: #imageLiteral(resourceName: "database-delete"), style: .plain, target: self, action: #selector(handleReset))
         // Create Navigation Controller UI
         view.backgroundColor = UIColor.white
-        navigationItem.title = "Companies"
         setupPlusButtonInNavBar(selector: #selector(handleAddCompany))
         tableView.backgroundColor = UIColor.navy
         //tableView.separatorStyle = .none       //makes line seperators go away within table
         tableView.tableFooterView = UIView()    //makes line separators go away within background
         tableView.register(CompanyCell.self, forCellReuseIdentifier: "cellId")
         tableView.separatorColor = .white
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+        refreshControl.tintColor = UIColor.white
+        self.refreshControl = refreshControl
     }
     
     // MARK: - Controller Functions
@@ -57,24 +60,32 @@ class CompaniesViewController: UITableViewController {
         tableView.reloadData()
     }
     
+    @objc private func handleRefresh() {
+        Service.shared.downloadCompanies()
+        self.companies = CoreDataManager.shared.fetchCompanies()
+        self.refreshControl?.endRefreshing() //makes drag-down gesture end
+        self.tableView.reloadData()
+        viewDidLoad()
+    }
+    
     @objc private func doWork() {
-        print("Trying to do work...")
-        CoreDataManager.shared.persistentContainer.performBackgroundTask({ (backgroundContext) in
-            (0...5).forEach { (value) in
-                print(value)
-                let company = Company(context: backgroundContext)
-                company.name = String(value)
-            }
-            do {
-                try backgroundContext.save()
-                DispatchQueue.main.async {
-                    self.companies = CoreDataManager.shared.fetchCompanies()
-                    self.tableView.reloadData()
-                }
-            } catch let err {
-                print("Failed to save: ", err)
-            }
-        })
+//        print("Trying to do work...")
+//        CoreDataManager.shared.persistentContainer.performBackgroundTask({ (backgroundContext) in
+//            (0...5).forEach { (value) in
+//                print(value)
+//                let company = Company(context: backgroundContext)
+//                company.name = String(value)
+//            }
+//            do {
+//                try backgroundContext.save()
+//                DispatchQueue.main.async {
+//                    self.companies = CoreDataManager.shared.fetchCompanies()
+//                    self.tableView.reloadData()
+//                }
+//            } catch let err {
+//                print("Failed to save: ", err)
+//            }
+//        })
     }
     
     @objc private func doUpdates() {
