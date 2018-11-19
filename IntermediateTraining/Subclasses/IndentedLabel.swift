@@ -12,7 +12,7 @@ class IndentedLabel: UILabel {
 
     override func draw(_ rect: CGRect) {
         let insets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
-        let customRect = UIEdgeInsetsInsetRect(rect, insets)
+        let customRect = rect.inset(by: insets)
         super.drawText(in: customRect)
     }
 

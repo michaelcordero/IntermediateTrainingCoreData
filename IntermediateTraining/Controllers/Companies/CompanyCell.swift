@@ -15,7 +15,7 @@ class CompanyCell: UITableViewCell {
     var company: Company? {
         didSet {
             nameFoundedDateLabel.text = company?.name
-            companyImageView.image = UIImage(data: company?.imageData ?? UIImagePNGRepresentation(#imageLiteral(resourceName: "select-photo"))!)
+            companyImageView.image = UIImage(data: company?.imageData ?? #imageLiteral(resourceName: "select-photo").pngData()!)
             if let name = company?.name, let founded = company?.founded {
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "MMM dd, yyyy"
@@ -49,7 +49,7 @@ class CompanyCell: UITableViewCell {
         return label
     }()
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         backgroundColor = .teal
         

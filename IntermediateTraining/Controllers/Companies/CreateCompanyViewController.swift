@@ -19,7 +19,7 @@ class CreateCompanyViewController: UIViewController, UINavigationControllerDeleg
             nameTextField.text = company?.name
             guard let founded = company?.founded  else { return }
             datePicker.date = founded
-            companyImageView.image = UIImage(data: company?.imageData ?? UIImagePNGRepresentation(#imageLiteral(resourceName: "select-photo"))!)
+            companyImageView.image = UIImage(data: company?.imageData ?? #imageLiteral(resourceName: "select-photo").pngData()!)
             setupCircularImageStyle()
         }
     }
@@ -91,12 +91,15 @@ class CreateCompanyViewController: UIViewController, UINavigationControllerDeleg
         dismiss(animated: true, completion: nil)
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+// Local variable inserted by Swift 4.2 migrator.
+let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+
         
-        if let editedImage = info[UIImagePickerControllerEditedImage] as? UIImage{
+        if let editedImage = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.editedImage)] as? UIImage{
             companyImageView.image = editedImage
         }
-        else if let originalImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+        else if let originalImage = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.originalImage)] as? UIImage {
             companyImageView.image = originalImage
         }
         setupCircularImageStyle()
@@ -107,7 +110,7 @@ class CreateCompanyViewController: UIViewController, UINavigationControllerDeleg
         company?.name = nameTextField.text
         company?.founded = datePicker.date
         if let companyImage = companyImageView.image {
-            let imageData = UIImageJPEGRepresentation(companyImage, 0.8)
+            let imageData = companyImage.jpegData(compressionQuality: 0.8)
             company?.imageData = imageData
         }
         do {
@@ -129,7 +132,7 @@ class CreateCompanyViewController: UIViewController, UINavigationControllerDeleg
         company.setValue(nameTextField.text, forKey: "name")
         company.setValue(datePicker.date, forKey: "founded")
         if let companyImage = companyImageView.image {
-            let imageData = UIImageJPEGRepresentation(companyImage, 0.8)
+            let imageData = companyImage.jpegData(compressionQuality: 0.8)
             company.setValue(imageData, forKey: "imageData")
         }
         // perform save
@@ -187,3 +190,13 @@ class CreateCompanyViewController: UIViewController, UINavigationControllerDeleg
 }
 
 
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
+	return input.rawValue
+}
