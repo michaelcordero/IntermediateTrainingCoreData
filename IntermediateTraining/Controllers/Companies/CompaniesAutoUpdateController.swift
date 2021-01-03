@@ -131,6 +131,8 @@ class CompaniesAutoUpdateController: UITableViewController, NSFetchedResultsCont
             tableView.reloadRows(at: [indexPath!], with: .fade)
         case .move:
             tableView.moveRow(at: indexPath!, to: newIndexPath!)
+        @unknown default:
+            print("unknown case")
         }
     }
     
@@ -144,6 +146,8 @@ class CompaniesAutoUpdateController: UITableViewController, NSFetchedResultsCont
             break
         case .update:
             break
+        @unknown default:
+            print("unknown case")
         }
     }
 

@@ -13,7 +13,7 @@ extension CompaniesViewController: CreateCompanyControllerDelegate {
     // MARK: - Protocols
     func didEditCompany(company: Company) {
         //update tableview somehow
-        let row = companies.index(of: company)
+        let row = companies.firstIndex(of: company)
         let reloadIndexPath = IndexPath(row: row!, section: 0)
         tableView.reloadRows(at: [reloadIndexPath], with: .middle)
     }

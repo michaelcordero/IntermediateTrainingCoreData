@@ -106,7 +106,7 @@ class EmployeesTableViewController: UITableViewController, CreateEmployeeControl
     
     // MARK: - Protocol
     func didAddEmployee(employee: Employee) {
-        guard let section = employeeTypes.index(of: EmployeeType(rawValue: employee.type!)!) else { return }
+        guard let section = employeeTypes.firstIndex(of: EmployeeType(rawValue: employee.type!)!) else { return }
         let row = allEmployees[section].count
         let insertionIndexPath = IndexPath.init(row: row, section: section)
         allEmployees[section].append(employee)
